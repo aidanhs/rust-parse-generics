@@ -164,7 +164,7 @@ macro_rules! parse_constr {
     ) => {
         parse_constr! {
             @parse
-            $prefix, (false, true),
+            $prefix, (true, true),
             {$($constr)* $trname},
             $($body)*
         }

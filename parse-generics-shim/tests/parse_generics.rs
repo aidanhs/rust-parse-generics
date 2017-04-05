@@ -214,6 +214,20 @@ fn test_constr_ty_params() {
     );
 
     aeqiws!(
+        pgts!({ .. }, <T: 'a, U: Copy + 'a> X),
+        r#"
+            {
+                constr : [ T : 'a , U : Copy + 'a , ] ,
+                params : [ T , U , ] ,
+                ltimes : [ ] ,
+                tnames : [ T , U , ] ,
+                ..
+            } ,
+            X
+        "#
+    );
+
+    aeqiws!(
         pgts!({ .. }, <T: ?Sized> X),
         r#"
             {
@@ -451,6 +465,7 @@ fn test_passthru() {
     parse_generics_shim! { { .. }, then emit!{l2}, <'a, 'b: 'a, 'c: 'a + 'b> X }
     parse_generics_shim! { { .. }, then emit!{m}, <'a, T: 'a + Copy> X }
     parse_generics_shim! { { .. }, then emit!{m2}, <'a, T: 'a + Copy + Clone> X }
+    parse_generics_shim! { { .. }, then emit!{m3}, <'a, T: Copy + 'a> X }
     parse_generics_shim! { { .. }, then emit!{n}, <T: 'static> X }
     parse_generics_shim! { { .. }, then emit!{o}, <T: From<u8>> X }
 
